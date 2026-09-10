@@ -19,8 +19,27 @@ GitHub Pages 有两种站点：
 
 ## 内容
 
-- `index.html` — 手写的单文件导航页，样式内联、无构建依赖、跟随系统亮暗主题。
-- `.nojekyll` — 跳过 Jekyll 处理，避免 GitHub Pages 对文件做多余转换。
+本仓库还是**主机级文件的唯一归属地**——这些文件只有放在根目录才生效：
+
+| 文件 | 作用 |
+|------|------|
+| `index.html` | 手写单文件导航页，样式内联、无构建依赖、跟随系统亮暗主题 |
+| `robots.txt` | **主机根 robots.txt 才被爬虫读取**。放行各搜索引擎与 18 个 AI 爬虫，声明两个 sitemap |
+| `sitemap.xml` | 本根页面的站点地图；`/tools/sitemap.xml` 由 tools 仓库生成 |
+| `<key>.txt` | IndexNow 归属校验文件，一份 key 覆盖整个主机 |
+| `.nojekyll` | 跳过 Jekyll 处理，避免 GitHub Pages 对文件做多余转换 |
+
+> `/tools/robots.txt` 那份爬虫不会读（robots.txt 只认主机根目录），
+> 它的存在只是给审计工具看，两份放行清单需保持同步。
+
+## IndexNow
+
+```bash
+cd ../tools && python3 submit.py
+```
+
+key 文件在本仓库根目录，因此可以提交**整个主机**的 URL（根页面 + `/tools/` 下全部页面），
+不必受 key 文件所在目录的限制。
 
 ## 加搜索引擎验证文件
 
