@@ -4,42 +4,34 @@
 
 ## 这个仓库是干什么的
 
-GitHub Pages 有两种站点：
+2026-09 起，**工具站已经迁到独立域名 <https://devtools.help/>**（CNAME 绑在 `tools` 仓库上，
+由该仓库的 `docs/` 发布）。本仓库保留为：
 
-| 类型 | 仓库名 | 发布地址 |
-|------|--------|----------|
-| **用户站点**（本仓库） | `<用户名>.github.io` | `https://xwjiang2003.github.io/` |
-| 项目站点 | 任意其他仓库（如 `tools`） | `https://xwjiang2003.github.io/tools/` |
+- `https://xwjiang2003.github.io/` 上的一个**导航落地页**，直接指向 `devtools.help`；
+- **本主机**（`xwjiang2003.github.io`）的 robots.txt 与 sitemap.xml 归属地。
 
-建这个仓库的**主要目的不是放页面，而是拿回域名根目录的控制权**：
-
-- 根目录可写之后，Google / Bing / 百度 的**文件验证**才能用
-  （项目站点只能写 `/tools/`，根路径返回 404，文件方式验证不了）。
-- 顺带让 `https://xwjiang2003.github.io/` 不再 404，成为一个导航入口。
+> 注意：`robots.txt` 只认**主机根**。`xwjiang2003.github.io` 和 `devtools.help` 是**两个主机**，
+> 各有各的 robots.txt，互不生效。工具站那份在 `tools` 仓库的 `docs/robots.txt`。
 
 ## 内容
 
-本仓库还是**主机级文件的唯一归属地**——这些文件只有放在根目录才生效：
-
 | 文件 | 作用 |
 |------|------|
-| `index.html` | 手写单文件导航页，样式内联、无构建依赖、跟随系统亮暗主题 |
-| `robots.txt` | **主机根 robots.txt 才被爬虫读取**。放行各搜索引擎与 18 个 AI 爬虫，声明两个 sitemap |
-| `sitemap.xml` | 本根页面的站点地图；`/tools/sitemap.xml` 由 tools 仓库生成 |
-| `<key>.txt` | IndexNow 归属校验文件，一份 key 覆盖整个主机 |
-| `.nojekyll` | 跳过 Jekyll 处理，避免 GitHub Pages 对文件做多余转换 |
-
-> `/tools/robots.txt` 那份爬虫不会读（robots.txt 只认主机根目录），
-> 它的存在只是给审计工具看，两份放行清单需保持同步。
+| `index.html` | 单文件导航落地页，链接直接指向 `https://devtools.help/`（省掉一次 301） |
+| `robots.txt` | 本主机根 robots.txt。放行搜索引擎与 18 个 AI 爬虫，声明两份 sitemap |
+| `sitemap.xml` | 本落地页的站点地图 |
+| `.nojekyll` | 跳过 Jekyll 处理 |
 
 ## IndexNow
+
+IndexNow 的 key 文件**已迁到工具站**：<https://devtools.help/9f4c1d7a2e8b5306ac1f7d9e4b2a8c30.txt>。
+
+因为提交的是 `devtools.help` 主机下的 URL，key 必须放在**那个主机**的根目录，
+所以文件由 `tools` 仓库的 `build.py` 生成到 `docs/CNAME` 同级，本仓库不再承载。
 
 ```bash
 cd ../tools && python3 submit.py
 ```
-
-key 文件在本仓库根目录，因此可以提交**整个主机**的 URL（根页面 + `/tools/` 下全部页面），
-不必受 key 文件所在目录的限制。
 
 ## 加搜索引擎验证文件
 

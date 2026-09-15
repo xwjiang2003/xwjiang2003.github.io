@@ -58,8 +58,7 @@ Allow: /
 User-agent: YouBot
 Allow: /
 
-# 站点地图：主机根 + 项目站点（robots.txt 只能放在主机根目录才生效，
-# /tools/robots.txt 那份是给审计工具看的，爬虫不会读）
+# 站点地图：本落地页 + 工具站（工具站已迁到独立域名 devtools.help）
 Sitemap: https://xwjiang2003.github.io/sitemap.xml
-Sitemap: https://xwjiang2003.github.io/tools/sitemap.xml
-# LLM 站点摘要: https://xwjiang2003.github.io/tools/llms.txt
+Sitemap: https://devtools.help/sitemap.xml
+# LLM 站点摘要: https://devtools.help/llms.txt
